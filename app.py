@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from scrapling.fetchers import AsyncDynamicFetcher
+from scrapling.fetchers import DynamicFetcher
 
 app = FastAPI(title="Scrapling Article Fetcher")
 
@@ -20,7 +20,7 @@ async def health():
 @app.post("/scrape")
 async def scrape(request: ScrapeRequest):
     try:
-        page = await AsyncDynamicFetcher.fetch(
+        page = await DynamicFetcher.async_fetch(
             request.url,
             headless=True,
             network_idle=True,
